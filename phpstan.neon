@@ -1,4 +1,3 @@
 parameters:
 	ignoreErrors:
-		- '#Constant TEMP_DIR not found#'
 		- '#Access to an undefined property DateInterval::\$f#'

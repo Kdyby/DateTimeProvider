@@ -11,9 +11,8 @@
 declare(strict_types = 1);
 
 use Tester\Environment;
-use Tester\Helpers;
 
-if (!@include __DIR__ . '/../../vendor/autoload.php') {
+if (!@include __DIR__ . '/../vendor/autoload.php') {
 	echo 'Install Nette Tester using `composer update --dev`';
 	exit(1);
 }
@@ -21,10 +20,6 @@ if (!@include __DIR__ . '/../../vendor/autoload.php') {
 // configure environment
 Environment::setup();
 date_default_timezone_set('Europe/Prague');
-
-// create temporary directory
-define('TEMP_DIR', __DIR__ . '/../tmp/' . (isset($_SERVER['argv']) ? md5(serialize($_SERVER['argv'])) : getmypid()));
-Helpers::purge(TEMP_DIR);
 
 $_SERVER = array_intersect_key($_SERVER, array_flip([
 	'PHP_SELF',
