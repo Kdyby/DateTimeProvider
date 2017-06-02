@@ -1,8 +1,8 @@
 {
-	"name": "kdyby/clock",
+	"name": "kdyby/datetime-provider",
 	"type": "library",
 	"description": "Time provider, providing consistent current date, time, datetime and timezone across the request.",
-	"keywords": ["nette", "kdyby", "date", "time"],
+	"keywords": ["kdyby", "date", "time", "datetime", "microseconds", "clock", "provider"],
 	"homepage": "http://kdyby.org",
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"authors": [
@@ -15,11 +15,14 @@
 		{
 			"name": "Filip Procházka",
 			"homepage": "http://filip-prochazka.com"
+		},
+		{
+			"name": "Kdyby Community",
+			"homepage": "https://github.com/Kdyby/DateTimeProvider/graphs/contributors"
 		}
 	],
 	"support": {
-		"email": "filip@prochazka.su",
-		"issues": "https://github.com/kdyby/clock/issues"
+		"issues": "https://github.com/Kdyby/DateTimeProvider/issues"
 	},
 	"require": {
 		"php": "^7.1",
@@ -41,15 +44,12 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"KdybyTests\\": "tests/KdybyTests/"
-		},
-		"classmap": [
-			"tests/KdybyTests/"
-		]
+			"KdybyTests\\": "tests/"
+		}
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.0-dev"
+			"dev-master": "1.0-dev"
 		}
 	}
 }
