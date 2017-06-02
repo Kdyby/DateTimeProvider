@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kdyby\DateTimeProvider;
 
 use DateTimeImmutable;
 
-interface DateTimeProviderInterface
+interface DateProviderInterface
 {
 
-	public function getDateTime(): DateTimeImmutable;
+	public function getDate(): DateTimeImmutable;
 
 }
