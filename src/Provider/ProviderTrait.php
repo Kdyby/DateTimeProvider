@@ -54,7 +54,7 @@ trait ProviderTrait
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getTimezone(): DateTimeZone
+	public function getTimeZone(): DateTimeZone
 	{
 		return $this->getPrototype()->getTimezone();
 	}
