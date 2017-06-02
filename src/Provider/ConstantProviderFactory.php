@@ -34,9 +34,6 @@ class ConstantProviderFactory
 			if ($dateTime instanceof DateTime) {
 				$dateTime = DateTimeImmutable::createFromMutable($dateTime);
 			}
-			if (!$dateTime instanceof DateTimeImmutable) {
-				throw new \Kdyby\DateTimeProvider\InvalidArgumentException(sprintf('ConstantProvider requires DateTimeImmutable instance, but %s given', get_class($dateTime)));
-			}
 			return new ConstantProvider($dateTime);
 
 		} elseif (is_numeric($dateTime)) {
