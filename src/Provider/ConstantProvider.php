@@ -14,7 +14,12 @@ namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTimeImmutable;
 
-class ConstantProvider implements \Kdyby\DateTimeProvider\DateTimeProviderInterface
+class ConstantProvider
+	implements
+		\Kdyby\DateTimeProvider\DateTimeProviderInterface,
+		\Kdyby\DateTimeProvider\DateProviderInterface,
+		\Kdyby\DateTimeProvider\TimeProviderInterface,
+		\Kdyby\DateTimeProvider\TimeZoneProviderInterface
 {
 
 	use \Kdyby\DateTimeProvider\Provider\ImmutableProviderTrait;
