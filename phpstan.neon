@@ -1,3 +1,4 @@
 parameters:
 	ignoreErrors:
 		- '#Access to an undefined property DateInterval::\$f#'
+		- '#Parameter \#1 \$dateTime of class Kdyby\\DateTimeProvider\\Provider\\ConstantProvider constructor expects DateTimeImmutable, DateTimeInterface\|mixed given.#'
