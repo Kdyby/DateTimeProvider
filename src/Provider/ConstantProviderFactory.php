@@ -14,7 +14,6 @@ namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 
 /**
@@ -26,15 +25,15 @@ class ConstantProviderFactory
 	use \Kdyby\StrictObjects\Scream;
 
 	/**
-	 * @param string|int|\DateTimeInterface $dateTime
+	 * @param string|int|\DateTimeImmutable|\DateTime $dateTime
 	 */
 	public function create($dateTime): ConstantProvider
 	{
-		if ($dateTime instanceof DateTimeInterface) {
-			if ($dateTime instanceof DateTime) {
-				$dateTime = DateTimeImmutable::createFromMutable($dateTime);
-			}
+		if ($dateTime instanceof DateTimeImmutable) {
 			return new ConstantProvider($dateTime);
+
+		} elseif ($dateTime instanceof DateTime) {
+			return new ConstantProvider(DateTimeImmutable::createFromMutable($dateTime));
 
 		} elseif (is_numeric($dateTime)) {
 			return new ConstantProvider((new DateTimeImmutable(sprintf('@%.6f', $dateTime)))->setTimezone(new DateTimeZone(date_default_timezone_get())));
