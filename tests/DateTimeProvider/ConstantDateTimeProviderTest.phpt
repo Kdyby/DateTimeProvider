@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Test: Kdyby\DateTimeProvider\ConstantProvider.
+ * Test: Kdyby\DateTimeProvider\ConstantDateTimeProvider.
  *
- * @testCase KdybyTests\DateTimeProvider\ConstantProviderTest
+ * @testCase KdybyTests\DateTimeProvider\ConstantDateTimeProviderTest
  */
 
 declare(strict_types = 1);
@@ -11,17 +11,17 @@ declare(strict_types = 1);
 namespace KdybyTests\DateTimeProvider;
 
 use DateTimeImmutable;
-use Kdyby\DateTimeProvider\Provider\ConstantProvider;
+use Kdyby\DateTimeProvider\Provider\ConstantDateTimeProvider;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class ConstantProviderTest extends \Tester\TestCase
+class ConstantDateTimeProviderTest extends \Tester\TestCase
 {
 
 	public function testConstant(): void
 	{
-		$tp = new ConstantProvider(new DateTimeImmutable('2013-09-14 03:53:21.123456'));
+		$tp = new ConstantDateTimeProvider(new DateTimeImmutable('2013-09-14 03:53:21.123456'));
 		$datetime = $tp->getDateTime();
 		$date = $tp->getDate();
 		$time = $tp->getTime();
@@ -37,4 +37,4 @@ class ConstantProviderTest extends \Tester\TestCase
 
 }
 
-(new ConstantProviderTest())->run();
+(new ConstantDateTimeProviderTest())->run();

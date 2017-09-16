@@ -19,7 +19,7 @@ use DateTimeZone;
 /**
  * Base implementation for DateTime-based providers.
  */
-trait ProviderTrait
+trait DateTimeProviderTrait
 {
 
 	abstract protected function getPrototype(): DateTimeImmutable;
