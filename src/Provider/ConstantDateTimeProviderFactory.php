@@ -19,7 +19,7 @@ use DateTimeZone;
 /**
  * Helper factory to create ConstantProvider from arbitrary input.
  */
-class ConstantProviderFactory
+class ConstantDateTimeProviderFactory
 {
 
 	use \Kdyby\StrictObjects\Scream;
@@ -27,16 +27,16 @@ class ConstantProviderFactory
 	/**
 	 * @param string|int|\DateTimeImmutable|\DateTime $dateTime
 	 */
-	public function create($dateTime): ConstantProvider
+	public function create($dateTime): ConstantDateTimeProvider
 	{
 		if ($dateTime instanceof DateTimeImmutable) {
-			return new ConstantProvider($dateTime);
+			return new ConstantDateTimeProvider($dateTime);
 
 		} elseif ($dateTime instanceof DateTime) {
-			return new ConstantProvider(DateTimeImmutable::createFromMutable($dateTime));
+			return new ConstantDateTimeProvider(DateTimeImmutable::createFromMutable($dateTime));
 
 		} elseif (is_numeric($dateTime)) {
-			return new ConstantProvider((new DateTimeImmutable(sprintf('@%.6f', $dateTime)))->setTimezone(new DateTimeZone(date_default_timezone_get())));
+			return new ConstantDateTimeProvider((new DateTimeImmutable(sprintf('@%.6f', $dateTime)))->setTimezone(new DateTimeZone(date_default_timezone_get())));
 
 		} elseif (is_string($dateTime)) {
 			throw new \Kdyby\DateTimeProvider\NotImplementedException(sprintf(

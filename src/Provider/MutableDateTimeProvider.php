@@ -14,7 +14,7 @@ namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTimeImmutable;
 
-class CurrentProvider
+class MutableDateTimeProvider
 	implements
 		\Kdyby\DateTimeProvider\DateTimeProviderInterface,
 		\Kdyby\DateTimeProvider\DateProviderInterface,
@@ -22,15 +22,27 @@ class CurrentProvider
 		\Kdyby\DateTimeProvider\TimeZoneProviderInterface
 {
 
-	use \Kdyby\DateTimeProvider\Provider\ProviderTrait;
+	use \Kdyby\DateTimeProvider\Provider\DateTimeProviderTrait;
 	use \Kdyby\StrictObjects\Scream;
 
 	/**
-	 * {@inheritdoc}
+	 * @var \DateTimeImmutable
 	 */
-	public function getPrototype(): DateTimeImmutable
+	private $prototype;
+
+	public function __construct(DateTimeImmutable $prototype)
 	{
-		return new DateTimeImmutable();
+		$this->prototype = $prototype;
+	}
+
+	protected function getPrototype(): DateTimeImmutable
+	{
+		return $this->prototype;
+	}
+
+	public function changePrototype(DateTimeImmutable $prototype): void
+	{
+		$this->prototype = $prototype;
 	}
 
 }

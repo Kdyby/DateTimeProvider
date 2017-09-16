@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Kdyby\DateTimeProvider\ConstantProvider.
+ * Test: Kdyby\DateTimeProvider\ConstantDateTimeProviderFactory.
  *
  * @testCase KdybyTests\DateTimeProvider\ConstantProviderTest
  */
@@ -12,18 +12,18 @@ namespace KdybyTests\DateTimeProvider;
 
 use DateTime;
 use DateTimeImmutable;
-use Kdyby\DateTimeProvider\Provider\ConstantProviderFactory;
+use Kdyby\DateTimeProvider\Provider\ConstantDateTimeProviderFactory;
 use Tester\Assert;
 use stdClass;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class ConstantProviderFactoryTest extends \Tester\TestCase
+class ConstantDateTimeProviderFactoryTest extends \Tester\TestCase
 {
 
 	public function testCreateFromNumeric(): void
 	{
-		$tp = (new ConstantProviderFactory())->create(1379123601);
+		$tp = (new ConstantDateTimeProviderFactory())->create(1379123601);
 		$datetime = $tp->getDateTime();
 		$date = $tp->getDate();
 		$time = $tp->getTime();
@@ -40,7 +40,7 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 
 	public function testCreateFromMutableDatetime(): void
 	{
-		$tp = (new ConstantProviderFactory())->create(new DateTime('2013-09-14 03:53:21'));
+		$tp = (new ConstantDateTimeProviderFactory())->create(new DateTime('2013-09-14 03:53:21'));
 		$datetime = $tp->getDateTime();
 		$date = $tp->getDate();
 		$time = $tp->getTime();
@@ -57,7 +57,7 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 
 	public function testCreateFromMutableDatetimeImmutable(): void
 	{
-		$tp = (new ConstantProviderFactory())->create(new DateTimeImmutable('2013-09-14 03:53:21'));
+		$tp = (new ConstantDateTimeProviderFactory())->create(new DateTimeImmutable('2013-09-14 03:53:21'));
 		$datetime = $tp->getDateTime();
 		$date = $tp->getDate();
 		$time = $tp->getTime();
@@ -76,31 +76,31 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 	{
 		date_default_timezone_set('Europe/Prague');
 
-		$tp = (new ConstantProviderFactory())->create(1379123601);
+		$tp = (new ConstantDateTimeProviderFactory())->create(1379123601);
 		Assert::same('Europe/Prague', $tp->getTimeZone()->getName());
 		Assert::same('2013-09-14 03:53:21.000000 +02:00', $tp->getDateTime()->format('Y-m-d H:i:s.u P'));
 
 		date_default_timezone_set('Europe/London');
 
-		$tp = (new ConstantProviderFactory())->create(1379123601);
+		$tp = (new ConstantDateTimeProviderFactory())->create(1379123601);
 		Assert::same('Europe/London', $tp->getTimeZone()->getName());
 		Assert::same('2013-09-14 02:53:21.000000 +01:00', $tp->getDateTime()->format('Y-m-d H:i:s.u P'));
 	}
 
 	public function testCreateFromUnknownException(): void
 	{
-		Assert::exception(function () {
-			(new ConstantProviderFactory())->create('blablabla');
+		Assert::exception(function (): void {
+			(new ConstantDateTimeProviderFactory())->create('blablabla');
 		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime in given format "blablabla"');
 
-		Assert::exception(function () {
-			(new ConstantProviderFactory())->create(new stdClass());
+		Assert::exception(function (): void {
+			(new ConstantDateTimeProviderFactory())->create(new stdClass());
 		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime from given value stdClass');
 	}
 
 	public function testCreateFromMicroseconds(): void
 	{
-		$tp = (new ConstantProviderFactory())->create(1379123601.123456);
+		$tp = (new ConstantDateTimeProviderFactory())->create(1379123601.123456);
 		$datetime = $tp->getDateTime();
 		$date = $tp->getDate();
 		$time = $tp->getTime();
@@ -118,4 +118,4 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 
 }
 
-(new ConstantProviderFactoryTest())->run();
+(new ConstantDateTimeProviderFactoryTest())->run();

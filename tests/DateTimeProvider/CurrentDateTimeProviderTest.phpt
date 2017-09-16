@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Test: Kdyby\DateTimeProvider\CurrentProvider.
+ * Test: Kdyby\DateTimeProvider\CurrentDateTimeProvider.
  *
- * @testCase KdybyTests\DateTimeProvider\CurrentProviderTest
+ * @testCase KdybyTests\DateTimeProvider\CurrentDateTimeProviderTest
  */
 
 declare(strict_types = 1);
@@ -11,17 +11,17 @@ declare(strict_types = 1);
 namespace KdybyTests\DateTimeProvider;
 
 use DateTimeImmutable;
-use Kdyby\DateTimeProvider\Provider\CurrentProvider;
+use Kdyby\DateTimeProvider\Provider\CurrentDateTimeProvider;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-class CurrentProviderTest extends \Tester\TestCase
+class CurrentDateTimeProviderTest extends \Tester\TestCase
 {
 
 	public function testNotConstant(): void
 	{
-		$tp = new CurrentProvider();
+		$tp = new CurrentDateTimeProvider();
 		$date = $tp->getDate();
 		$datetime = $tp->getDateTime();
 		$time = $tp->getTime();
@@ -40,15 +40,15 @@ class CurrentProviderTest extends \Tester\TestCase
 	{
 		date_default_timezone_set('Europe/Prague');
 
-		$tp = new CurrentProvider();
+		$tp = new CurrentDateTimeProvider();
 		Assert::same('Europe/Prague', $tp->getTimeZone()->getName());
 
 		date_default_timezone_set('Europe/London');
 
-		$tp = new CurrentProvider();
+		$tp = new CurrentDateTimeProvider();
 		Assert::same('Europe/London', $tp->getTimeZone()->getName());
 	}
 
 }
 
-(new CurrentProviderTest())->run();
+(new CurrentDateTimeProviderTest())->run();

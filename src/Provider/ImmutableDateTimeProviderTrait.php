@@ -19,10 +19,10 @@ use DateTimeZone;
 /**
  * Provides some optimizations for providers with guaranteed immutability.
  */
-trait ImmutableProviderTrait
+trait ImmutableDateTimeProviderTrait
 {
 
-	use \Kdyby\DateTimeProvider\Provider\ProviderTrait {
+	use \Kdyby\DateTimeProvider\Provider\DateTimeProviderTrait {
 		getDate as getDateVolatile;
 		getTime as getTimeVolatile;
 		getTimeZone as getTimeZoneVolatile;
