@@ -89,11 +89,11 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 
 	public function testCreateFromUnknownException(): void
 	{
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			(new ConstantProviderFactory())->create('blablabla');
 		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime in given format "blablabla"');
 
-		Assert::exception(function () {
+		Assert::exception(function (): void {
 			(new ConstantProviderFactory())->create(new stdClass());
 		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime from given value stdClass');
 	}
