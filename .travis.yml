@@ -1,39 +1,75 @@
+dist: trusty
+sudo: false
 language: php
 
-sudo: false
-
 cache:
-    directories:
-        - $HOME/.composer/cache
+  directories:
+    - $HOME/.composer/cache
 
 php:
   - 7.1
+  - 7.2
+  - nightly
 
-env:
-  - # dev
-  - COMPOSER_EXTRA_ARGS="--prefer-stable"
-  - COMPOSER_EXTRA_ARGS="--prefer-lowest --prefer-stable"
-
-matrix:
-  fast_finish: true
-  include:
-    - env: COMPOSER_EXTRA_ARGS="--prefer-stable" COVERAGE="--coverage ./coverage.xml --coverage-src ./src" TESTER_RUNTIME="phpdbg"
-  allow_failures:
-    - env:
+before_install:
+  - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{,.disabled} || echo "xdebug not available"
+  - composer self-update
 
 install:
-  - travis_retry composer update --no-interaction --no-suggest --no-progress --prefer-dist $COMPOSER_EXTRA_ARGS
-  - travis_retry composer create-project --no-interaction jakub-onderka/php-parallel-lint /tmp/php-parallel-lint
-  - if [ "$COVERAGE" != "" ]; then travis_retry wget -O /tmp/coveralls.phar https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar; fi
+  - travis_retry composer update --no-interaction --no-suggest --prefer-dist
 
 script:
-  - vendor/bin/tester $COVERAGE -s -p ${TESTER_RUNTIME:-php} -c ./tests/php.ini-unix ./tests/
-  - php /tmp/php-parallel-lint/parallel-lint.php -e php,phpt --exclude vendor .
-  - php vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src tests
-  - php vendor/bin/phpcs --standard=ruleset.xml --encoding=utf-8 -sp src tests
-
-after_script:
-  - if [ "$COVERAGE" != "" ]; then php /tmp/coveralls.phar --verbose --config tests/.coveralls.yml || true; fi
+  - vendor/bin/tester -s -c tests/php.ini-unix tests/
 
 after_failure:
   - 'for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done'
+
+stages:
+  - Lint
+  - Test
+  - Code Quality
+
+jobs:
+  include:
+    - stage: Test
+      env: LOWEST_DEPENDENCIES
+      php: 7.1
+      install:
+        - travis_retry composer update --no-interaction --no-suggest --prefer-dist --prefer-lowest
+
+    - stage: Test
+      env: DEV_DEPENDENCIES
+      php: 7.2
+      install:
+        - composer config minimum-stability dev
+        - travis_retry composer update --no-interaction --no-suggest --prefer-dist
+
+    - stage: Test
+      env: COVERAGE
+      php: 7.1
+      script:
+        - vendor/bin/tester -s -p phpdbg -c ./tests/php.ini-unix --coverage ./coverage.xml --coverage-src ./src tests/
+      after_script:
+        - travis_retry wget -O /tmp/coveralls.phar https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+        - php /tmp/coveralls.phar --verbose --config tests/.coveralls.yml || true
+
+    - stage: Lint
+      before_script:
+        - travis_retry composer create-project --no-interaction jakub-onderka/php-parallel-lint /tmp/php-parallel-lint
+      script:
+        - php /tmp/php-parallel-lint/parallel-lint.php -e php,phpt src/ tests/
+
+    - stage: Code Quality
+      env: STATIC_ANALYSIS
+      script:
+        - vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src/ tests/
+
+    - stage: Code Quality
+      env: CODING_STANDARDS
+      php: 7.1
+      script:
+        - vendor/bin/phpcs --standard=ruleset.xml --encoding=utf-8 -sp src/ tests/
+
+  allow_failures:
+    - php: nightly
+    - env: DEV_DEPENDENCIES
