@@ -8,29 +8,31 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTimeImmutable;
+use Kdyby\DateTimeProvider\DateProviderInterface;
+use Kdyby\DateTimeProvider\DateTimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeZoneProviderInterface;
+use Kdyby\StrictObjects\Scream;
 
-class CurrentProvider
-	implements
-		\Kdyby\DateTimeProvider\DateTimeProviderInterface,
-		\Kdyby\DateTimeProvider\DateProviderInterface,
-		\Kdyby\DateTimeProvider\TimeProviderInterface,
-		\Kdyby\DateTimeProvider\TimeZoneProviderInterface
+class CurrentProvider implements
+    DateTimeProviderInterface,
+    DateProviderInterface,
+    TimeProviderInterface,
+    TimeZoneProviderInterface
 {
+    use ProviderTrait;
+    use Scream;
 
-	use \Kdyby\DateTimeProvider\Provider\ProviderTrait;
-	use \Kdyby\StrictObjects\Scream;
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getPrototype(): DateTimeImmutable
-	{
-		return new DateTimeImmutable();
-	}
-
+    /**
+     * {@inheritdoc}
+     */
+    public function getPrototype() : DateTimeImmutable
+    {
+        return new DateTimeImmutable();
+    }
 }

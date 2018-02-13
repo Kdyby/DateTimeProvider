@@ -8,36 +8,38 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTimeImmutable;
+use Kdyby\DateTimeProvider\DateProviderInterface;
+use Kdyby\DateTimeProvider\DateTimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeZoneProviderInterface;
+use Kdyby\StrictObjects\Scream;
 
-class ConstantProvider
-	implements
-		\Kdyby\DateTimeProvider\DateTimeProviderInterface,
-		\Kdyby\DateTimeProvider\DateProviderInterface,
-		\Kdyby\DateTimeProvider\TimeProviderInterface,
-		\Kdyby\DateTimeProvider\TimeZoneProviderInterface
+class ConstantProvider implements
+    DateTimeProviderInterface,
+    DateProviderInterface,
+    TimeProviderInterface,
+    TimeZoneProviderInterface
 {
+    use ImmutableProviderTrait;
+    use Scream;
 
-	use \Kdyby\DateTimeProvider\Provider\ImmutableProviderTrait;
-	use \Kdyby\StrictObjects\Scream;
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $prototype;
 
-	/**
-	 * @var \DateTimeImmutable
-	 */
-	private $prototype;
+    public function __construct(DateTimeImmutable $dateTime)
+    {
+        $this->prototype = $dateTime;
+    }
 
-	public function __construct(DateTimeImmutable $dateTime)
-	{
-		$this->prototype = $dateTime;
-	}
-
-	protected function getPrototype(): DateTimeImmutable
-	{
-		return $this->prototype;
-	}
-
+    protected function getPrototype() : DateTimeImmutable
+    {
+        return $this->prototype;
+    }
 }
