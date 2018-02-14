@@ -50,7 +50,7 @@ jobs:
       script:
         - vendor/bin/tester -s -p phpdbg -c ./tests/php.ini-unix --coverage ./coverage.xml --coverage-src ./src tests/
       after_script:
-        - travis_retry wget -O /tmp/coveralls.phar https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+        - travis_retry wget -O /tmp/coveralls.phar https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
         - php /tmp/coveralls.phar --verbose --config tests/.coveralls.yml || true
 
     - stage: Lint
