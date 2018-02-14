@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kdyby\DateTimeProvider;
 
@@ -16,7 +16,5 @@ use DateInterval;
 
 interface TimeProviderInterface
 {
-
-	public function getTime(): DateInterval;
-
+    public function getTime() : DateInterval;
 }

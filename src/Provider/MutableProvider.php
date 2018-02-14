@@ -8,41 +8,43 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kdyby\DateTimeProvider\Provider;
 
 use DateTimeImmutable;
+use Kdyby\DateTimeProvider\DateProviderInterface;
+use Kdyby\DateTimeProvider\DateTimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeProviderInterface;
+use Kdyby\DateTimeProvider\TimeZoneProviderInterface;
+use Kdyby\StrictObjects\Scream;
 
-class MutableProvider
-	implements
-		\Kdyby\DateTimeProvider\DateTimeProviderInterface,
-		\Kdyby\DateTimeProvider\DateProviderInterface,
-		\Kdyby\DateTimeProvider\TimeProviderInterface,
-		\Kdyby\DateTimeProvider\TimeZoneProviderInterface
+class MutableProvider implements
+    DateTimeProviderInterface,
+    DateProviderInterface,
+    TimeProviderInterface,
+    TimeZoneProviderInterface
 {
+    use ProviderTrait;
+    use Scream;
 
-	use \Kdyby\DateTimeProvider\Provider\ProviderTrait;
-	use \Kdyby\StrictObjects\Scream;
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $prototype;
 
-	/**
-	 * @var \DateTimeImmutable
-	 */
-	private $prototype;
+    public function __construct(DateTimeImmutable $prototype)
+    {
+        $this->prototype = $prototype;
+    }
 
-	public function __construct(DateTimeImmutable $prototype)
-	{
-		$this->prototype = $prototype;
-	}
+    protected function getPrototype() : DateTimeImmutable
+    {
+        return $this->prototype;
+    }
 
-	protected function getPrototype(): DateTimeImmutable
-	{
-		return $this->prototype;
-	}
-
-	public function changePrototype(DateTimeImmutable $prototype): void
-	{
-		$this->prototype = $prototype;
-	}
-
+    public function changePrototype(DateTimeImmutable $prototype) : void
+    {
+        $this->prototype = $prototype;
+    }
 }
