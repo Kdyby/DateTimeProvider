@@ -1,7 +1,7 @@
 Kdyby/DateTimeProvider
 ===========
 
-[![Build Status](https://secure.travis-ci.org/Kdyby/DateTimeProvider.png?branch=master)](http://travis-ci.org/Kdyby/DateTimeProvider)
+[![Build Status](https://travis-ci.org/Kdyby/DateTimeProvider.svg?branch=master)](https://travis-ci.org/Kdyby/DateTimeProvider)
 [![Downloads this Month](https://img.shields.io/packagist/dm/kdyby/datetime-provider.svg)](https://packagist.org/packages/kdyby/datetime-provider)
 [![Latest stable](https://img.shields.io/packagist/v/kdyby/datetime-provider.svg)](https://packagist.org/packages/kdyby/datetime-provider)
 [![Coverage Status](https://coveralls.io/repos/github/Kdyby/DateTimeProvider/badge.svg?branch=master)](https://coveralls.io/github/Kdyby/DateTimeProvider?branch=master)
@@ -9,7 +9,7 @@ Kdyby/DateTimeProvider
 Installation
 ------------
 
-The best way to install Kdyby/DateTimeProvider is using  [Composer](http://getcomposer.org/):
+The best way to install Kdyby/DateTimeProvider is using  [Composer](https://getcomposer.org/):
 
 ```sh
 $ composer require kdyby/datetime-provider
@@ -22,4 +22,4 @@ Learn more in the [documentation](https://github.com/Kdyby/DateTimeProvider/blob
 
 -----
 
-Homepage [http://www.kdyby.org](http://www.kdyby.org) and repository [http://github.com/Kdyby/DateTimeProvider](http://github.com/Kdyby/DateTimeProvider).
+Homepage [https://www.kdyby.org](https://www.kdyby.org) and repository [https://github.com/Kdyby/DateTimeProvider](https://github.com/Kdyby/DateTimeProvider).
