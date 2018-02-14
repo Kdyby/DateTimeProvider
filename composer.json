@@ -33,7 +33,6 @@
 		"nette/tester": "~1.7",
 		"phpstan/phpstan-shim": "^0.7"
 	},
-	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
 			"Kdyby\\DateTimeProvider\\": "src/"
