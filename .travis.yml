@@ -62,7 +62,7 @@ jobs:
     - stage: Code Quality
       env: STATIC_ANALYSIS
       script:
-        - vendor/phpstan/phpstan-shim/phpstan.phar analyse --ansi --no-progress -l7 -c phpstan.neon src/ tests/
+        - vendor/bin/phpstan analyse --ansi --no-progress -l max -c phpstan.neon src/ tests/
 
     - stage: Code Quality
       env: CODING_STANDARDS
