@@ -33,21 +33,21 @@ trait ImmutableProviderTrait
     /**
      * Cached date immutable object (time 0:00:00)
      *
-     * @var \DateTimeImmutable|NULL
+     * @var DateTimeImmutable|null
      */
     private $date;
 
     /**
      * Cached time object
      *
-     * @var \DateTimeImmutable|NULL
+     * @var DateInterval|null
      */
     private $time;
 
     /**
      * Cached time zone object
      *
-     * @var \DateTimeZone|NULL
+     * @var DateTimeZone|null
      */
     private $timezone;
 
