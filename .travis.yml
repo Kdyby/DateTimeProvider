@@ -7,8 +7,8 @@ cache:
     - $HOME/.composer/cache
 
 php:
-  - 7.1
   - 7.2
+  - 7.3
   - nightly
 
 before_install:
@@ -33,20 +33,20 @@ jobs:
   include:
     - stage: Test
       env: LOWEST_DEPENDENCIES
-      php: 7.1
+      php: 7.2
       install:
         - travis_retry composer update --no-interaction --no-suggest --prefer-dist --prefer-lowest
 
     - stage: Test
       env: DEV_DEPENDENCIES
-      php: 7.2
+      php: 7.4snapshot
       install:
         - composer config minimum-stability dev
         - travis_retry composer update --no-interaction --no-suggest --prefer-dist
 
     - stage: Test
       env: COVERAGE
-      php: 7.1
+      php: 7.2
       script:
         - vendor/bin/tester -s -p phpdbg -c ./tests/php.ini-unix --coverage ./coverage.xml --coverage-src ./src tests/
       after_script:
@@ -66,7 +66,7 @@ jobs:
 
     - stage: Code Quality
       env: CODING_STANDARDS
-      php: 7.1
+      php: 7.2
       script:
         - vendor/bin/phpcs
 
