@@ -25,7 +25,7 @@
 		"issues": "https://github.com/Kdyby/DateTimeProvider/issues"
 	},
 	"require": {
-		"php": "^7.1",
+		"php": "^7.2",
 		"kdyby/strict-objects": "^1.0"
 	},
 	"require-dev": {
