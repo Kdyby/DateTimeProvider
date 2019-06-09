@@ -18,11 +18,7 @@ use DateTimeZone;
 use Kdyby\DateTimeProvider\NotImplementedException;
 use Kdyby\StrictObjects\Scream;
 use function date_default_timezone_get;
-use function get_class;
-use function gettype;
 use function is_numeric;
-use function is_object;
-use function is_string;
 use function sprintf;
 
 /**
@@ -49,16 +45,9 @@ class ConstantProviderFactory
             return new ConstantProvider((new DateTimeImmutable(sprintf('@%.6f', $dateTime)))->setTimezone(new DateTimeZone(date_default_timezone_get())));
         }
 
-        if (is_string($dateTime)) {
-            throw new NotImplementedException(sprintf(
-                'Cannot process datetime in given format "%s"',
-                $dateTime
-            ));
-        }
-
         throw new NotImplementedException(sprintf(
-            'Cannot process datetime from given value %s',
-            is_object($dateTime) ? get_class($dateTime) : gettype($dateTime)
+            'Cannot process datetime in given format "%s"',
+            $dateTime
         ));
     }
 }

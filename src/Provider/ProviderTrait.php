@@ -38,7 +38,7 @@ trait ProviderTrait
     public function getTime() : DateInterval
     {
         $interval    = new DateInterval(sprintf('PT%dH%dM%dS', $this->getPrototype()->format('G'), $this->getPrototype()->format('i'), $this->getPrototype()->format('s')));
-        $interval->f = $this->getPrototype()->format('u');
+        $interval->f = (float) $this->getPrototype()->format('u');
 
         return $interval;
     }

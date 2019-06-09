@@ -1,4 +1,0 @@
-parameters:
-
-includes:
-	- vendor/phpstan/phpstan-strict-rules/rules.neon

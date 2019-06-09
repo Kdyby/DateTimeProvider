@@ -92,10 +92,6 @@ class ConstantProviderFactoryTest extends \Tester\TestCase
 		Assert::exception(function (): void {
 			(new ConstantProviderFactory())->create('blablabla');
 		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime in given format "blablabla"');
-
-		Assert::exception(function (): void {
-			(new ConstantProviderFactory())->create(new stdClass());
-		}, \Kdyby\DateTimeProvider\NotImplementedException::class, 'Cannot process datetime from given value stdClass');
 	}
 
 	public function testCreateFromMicroseconds(): void
